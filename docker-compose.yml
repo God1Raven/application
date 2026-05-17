@@ -1,0 +1,28 @@
+services:
+  db:
+    image: 'postgres'
+    container_name: shop_database
+    restart: always
+    user: root
+    ports:
+      - "52001:5432"
+    environment:
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop1
+      POSTGRES_DB: shop
+    networks:
+      - pg-network
+
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    container_name: pgadmin_ui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.ru
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "7070:80"
+    networks:
+      - pg-network
+networks:
+  pg-network:
+    driver: bridge
